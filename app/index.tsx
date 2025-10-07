@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AnimatedBackground from '@/components/AnimatedBackground';
+import ParticleField from '@/components/ParticleField';
 import GlassCard from '@/components/GlassCard';
 import NeonButton from '@/components/NeonButton';
 import colors from '@/constants/colors';
@@ -66,6 +67,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <AnimatedBackground />
+      <ParticleField />
       <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
         <ScrollView
           style={styles.scrollView}

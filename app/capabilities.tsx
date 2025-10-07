@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AnimatedBackground from '@/components/AnimatedBackground';
+import ParticleField from '@/components/ParticleField';
 import GlassCard from '@/components/GlassCard';
 import colors from '@/constants/colors';
 import { capabilities, categories } from '@/data/capabilities';
@@ -64,6 +65,7 @@ export default function CapabilitiesScreen() {
   return (
     <View style={styles.container}>
       <AnimatedBackground />
+      <ParticleField />
       <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
         <View style={styles.header}>
           <Pressable

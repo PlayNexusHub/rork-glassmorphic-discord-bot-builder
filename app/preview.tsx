@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AnimatedBackground from '@/components/AnimatedBackground';
+import ParticleField from '@/components/ParticleField';
 import GlassCard from '@/components/GlassCard';
 import NeonButton from '@/components/NeonButton';
 import colors from '@/constants/colors';
@@ -35,6 +36,7 @@ export default function PreviewScreen() {
   return (
     <View style={styles.container}>
       <AnimatedBackground />
+      <ParticleField />
       <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
         <View style={styles.header}>
           <View style={styles.backButton} />
@@ -168,7 +170,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: 20,
-    paddingBottom: 40,
+    paddingBottom: 120,
   },
   successCard: {
     alignItems: 'center',

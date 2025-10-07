@@ -3,6 +3,9 @@ import {
   ArrowLeft,
   Check,
   Sparkles,
+  Zap,
+  Download,
+  Eye,
 } from 'lucide-react-native';
 import React, { useState } from 'react';
 import {
@@ -17,10 +20,14 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AnimatedBackground from '@/components/AnimatedBackground';
+import ParticleField from '@/components/ParticleField';
+import FloatingActionButton from '@/components/FloatingActionButton';
+
 import GlassCard from '@/components/GlassCard';
 import NeonButton from '@/components/NeonButton';
 import colors from '@/constants/colors';
 import { capabilities } from '@/data/capabilities';
+import { generateBotFiles, downloadBotFiles } from '@/utils/botGenerator';
 
 export default function BuilderScreen() {
   const [botName, setBotName] = useState('');
@@ -48,12 +55,50 @@ export default function BuilderScreen() {
       selectedCapabilities,
       features,
     });
+    
+    const files = generateBotFiles(
+      { botName, botDescription, prefix, selectedCapabilities, features },
+      capabilities
+    );
+    
+    console.log('Generated files:', files.length);
     router.push('/preview' as any);
   };
+
+  const handleQuickPreview = () => {
+    router.push('/preview' as any);
+  };
+
+  const handleDownload = () => {
+    const files = generateBotFiles(
+      { botName, botDescription, prefix, selectedCapabilities, features },
+      capabilities
+    );
+    downloadBotFiles(files, botName);
+  };
+
+  const fabActions = [
+    {
+      icon: <Eye size={24} color={colors.dark.text} />,
+      onPress: handleQuickPreview,
+      color: colors.neon.purple,
+    },
+    {
+      icon: <Download size={24} color={colors.dark.text} />,
+      onPress: handleDownload,
+      color: colors.neon.magenta,
+    },
+    {
+      icon: <Zap size={24} color={colors.dark.text} />,
+      onPress: handleGenerate,
+      color: colors.neon.cyan,
+    },
+  ];
 
   return (
     <View style={styles.container}>
       <AnimatedBackground />
+      <ParticleField />
       <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
         <View style={styles.header}>
           <Pressable onPress={() => router.back()} style={styles.backButton}>
@@ -209,6 +254,8 @@ export default function BuilderScreen() {
             style={styles.generateButton}
           />
         </ScrollView>
+        
+        <FloatingActionButton actions={fabActions} />
       </SafeAreaView>
     </View>
   );
@@ -248,7 +295,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: 20,
-    paddingBottom: 40,
+    paddingBottom: 120,
   },
   section: {
     marginBottom: 20,
